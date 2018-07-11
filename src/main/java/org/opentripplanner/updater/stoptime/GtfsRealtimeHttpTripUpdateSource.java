@@ -64,12 +64,12 @@ public class GtfsRealtimeHttpTripUpdateSource implements TripUpdateSource, JsonC
         List<TripUpdate> updates = null;
         fullDataset = true;
         try {
-            InputStream is = HttpUtils.getData(url);
+            InputStream is = HttpUtils.getData(url, "Authorization", "apikey 5IBv71kjUNrKb14fAOliO4wNqJyO2ZqzVE04");
             if (is != null) {
                 // Decode message
                 feedMessage = FeedMessage.PARSER.parseFrom(is);
                 feedEntityList = feedMessage.getEntityList();
-                
+
                 // Change fullDataset value if this is an incremental update
                 if (feedMessage.hasHeader()
                         && feedMessage.getHeader().hasIncrementality()
@@ -77,7 +77,7 @@ public class GtfsRealtimeHttpTripUpdateSource implements TripUpdateSource, JsonC
                                 .equals(GtfsRealtime.FeedHeader.Incrementality.DIFFERENTIAL)) {
                     fullDataset = false;
                 }
-                
+
                 // Create List of TripUpdates
                 updates = new ArrayList<>(feedEntityList.size());
                 for (FeedEntity feedEntity : feedEntityList) {
@@ -94,7 +94,7 @@ public class GtfsRealtimeHttpTripUpdateSource implements TripUpdateSource, JsonC
     public boolean getFullDatasetValueOfLastUpdates() {
         return fullDataset;
     }
-    
+
     public String toString() {
         return "GtfsRealtimeHttpUpdateStreamer(" + url + ")";
     }

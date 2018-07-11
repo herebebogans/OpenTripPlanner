@@ -98,7 +98,7 @@ public class GtfsRealtimeAlertsUpdater extends PollingGraphUpdater {
     @Override
     protected void runPolling() {
         try {
-            InputStream data = HttpUtils.getData(url, "Authorization", "apikey l7xx42313e9eb9fc41ab8d46084cf30ba1c2");
+            InputStream data = HttpUtils.getData(url, "Authorization", "apikey 5IBv71kjUNrKb14fAOliO4wNqJyO2ZqzVE04");
             if (data == null) {
                 throw new RuntimeException("Failed to get data from url " + url);
             }
